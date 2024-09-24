@@ -1,0 +1,4 @@
+package templates.java.gradle
+
+rootProject.name = 'javatestgradle'
+

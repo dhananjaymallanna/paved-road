@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Paved Road</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        input[type=checkmark] {
+            background-color: #457b9d;
+        }
+
+        input[type=checkmark]:hover {
+            background-color: #45a049;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+
+
+        input[type=submit] {
+            background-color: #457b9d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        label.col-75[type=radio]:hover {
+            background-color: #45a049;
+        }
+
+        .page {
+            padding-top: 30px;
+            background-color: #f1faee;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .container {
+            border-radius: 25px;
+            background-color: #a8dadc;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 50%;
+        }
+
+        .container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+        /* Clear floats after the columns */
+        .row::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+
+            .col-25,
+            .col-75,
+            input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="page">
+<h1 align="center">Java Paved Road</h1>
+
+<div class="container">
+<!--
+    <form action="save" method="post" th:object="${repoSpawnModel}">
+-->
+    <form action="#" th:action="@{/download}" method="post" th:object="${repoSpawnModel}">
+
+        <div class="row">
+            <div class="col-25">
+                <label htmlFor="projectType">Project</label>
+            </div>
+            <div class="col-75">
+                <label>Maven
+                    <input type="radio" name="projectType" th:field="*{projectType}" value="maven">
+                    <span class="checkmark"></span>
+                </label>
+                <label>Gradle
+                    <input type="radio" name="projectType" th:field="*{projectType}" value="gradle">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label htmlFor="type">Type</label>
+            </div>
+            <div class="col-75">
+                <label>Java Library
+                    <input type="radio" name="type" th:field="*{type}" value="java">
+                    <span class="checkmark"></span>
+                </label>
+                <label>Spring Boot
+                    <input type="radio" name="type" th:field="*{type}" value="spring-boot">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="group">Group</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="group" name="Group" placeholder="com.example" th:field="*{group}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="artifact">Artifact</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="artifact" name="lastname" placeholder="demo" th:field="*{artifact}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="name" name="name" placeholder="demo" th:field="*{name}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="description">Description</label>
+            </div>
+            <div class="col-75">
+                <textarea  th:field="*{description}" id="description" name="description" placeholder="Write something.." style="height:200px"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label htmlFor="javaVersion">Java_Version</label>
+            </div>
+            <div class="col-75">
+                <label>11
+                    <input type="radio" name="javaVersion" th:field="*{javaVersion}" value="11">
+                    <span class="checkmark"></span>
+                </label>
+                <label>17
+                    <input type="radio" name="javaVersion" th:field="*{javaVersion}" value="17">
+                    <span class="checkmark"></span>
+                </label>
+                <label>22
+                    <input type="radio" name="javaVersion" th:field="*{javaVersion}" value="22">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-25">
+                <label htmlFor="packaging">Packaging</label>
+            </div>
+            <div class="col-75">
+                <label>Jar
+                    <input type="radio" name="packaging" th:field="*{packaging}" value="jar">
+                </label>
+                <label>War
+                    <input type="radio" name="packaging" th:field="*{packaging}" value="war">
+                </label>
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <input class="button" type="submit" value="Generate">
+        </div>
+    </form>
+</div>
+
+
+</body>
+
+</html>
