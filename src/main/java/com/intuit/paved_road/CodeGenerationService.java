@@ -1,6 +1,7 @@
 package com.intuit.paved_road;
 
 import com.intuit.paved_road.assemble.*;
+import com.intuit.paved_road.exception.PipelineGenerationException;
 import com.intuit.paved_road.model.RepoSpawnModel;
 import com.intuit.paved_road.pipeline.GitLabCI;
 import com.intuit.paved_road.pipeline.JenkinsCI;
@@ -20,26 +21,27 @@ import java.util.List;
 public class CodeGenerationService  {
 
     @Autowired
-    SpringAssembler springAssembler;
+    private SpringAssembler springAssembler;
 
     @Autowired
-    JavaAssembler javaAssembler;
+    private JavaAssembler javaAssembler;
 
     @Autowired
-    MavenAssembler mavenAssembler;
+    private MavenAssembler mavenAssembler;
 
     @Autowired
-    GradleAssembler gradleAssembler;
+    private GradleAssembler gradleAssembler;
 
     @Autowired
-    JenkinsCI jenkinsCI;
+    private JenkinsCI jenkinsCI;
+
     @Autowired
-    GitLabCI gitLabCI;
+    private GitLabCI gitLabCI;
 
+    @Autowired
+    private Zipper zipper;
 
-    Zipper zipper = new Zipper();
-
-    public byte[] generateProject(RepoSpawnModel repoSpawnModel) throws IOException, TemplateException {
+    public byte[] generateProject(RepoSpawnModel repoSpawnModel) throws IOException, TemplateException, PipelineGenerationException {
         List<Assembler> assemblers = Arrays.asList(javaAssembler,springAssembler, mavenAssembler, gradleAssembler);
         List<Pipeline> pipelines = Arrays.asList(jenkinsCI,gitLabCI);
 

@@ -1,5 +1,7 @@
 package com.intuit.paved_road.generator;
 
+import com.intuit.paved_road.exception.GradleGenerationException;
+import com.intuit.paved_road.exception.MavenGenerationException;
 import com.intuit.paved_road.model.RepoSpawnModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -25,19 +27,19 @@ public class MavenGenerator extends CodeGenerator {
         super(freemarkerConfig);
     }
 
-    public List<String> generateBuildFile(RepoSpawnModel repoSpawnModel) {
+    public List<String> generateBuildFile(RepoSpawnModel repoSpawnModel) throws MavenGenerationException {
         try {
             Map<String, Object> data = getFeildsMap(repoSpawnModel);
             String outputFilePath = data.get(POM_PATH).toString();
             Template template = freemarkerConfig.getTemplate("spring-mvn/pom-template.ftl");
             return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
         } catch (IOException e) {
-            logger.error(e.getMessage());
-            throw new RuntimeException(e);
+            logger.error("Error generating build files");
+            throw new MavenGenerationException(e);
         }
     }
 
-    public List<String> copyStaticFiles(String folder) {
+    public List<String> copyStaticFiles(String folder) throws MavenGenerationException {
         List<String> files = new ArrayList<>();
         try {
             files.add(copyFile("/templates/.gitignore",folder+"/.gitignore"));
@@ -45,8 +47,8 @@ public class MavenGenerator extends CodeGenerator {
             files.add(copyFile("/templates/spring-mvn/mvnw",folder+"/mvnw"));
             files.add(copyFile("/templates/spring-mvn/mvnw.cmd",folder+"/mvnw.cmd"));
         } catch (IOException e) {
-            logger.error(e.getMessage());
-            throw new RuntimeException(e);
+            logger.error("Error copying static files");
+            throw new MavenGenerationException(e);
         }
         return files;
     }

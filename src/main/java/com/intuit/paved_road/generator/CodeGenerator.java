@@ -29,7 +29,7 @@ public class CodeGenerator {
         this.freemarkerConfig = freemarkerConfig;
     }
 
-    public List<String> generateFileFromTemplate(RepoSpawnModel repoSpawnModel, Template template, String destination)  {
+    public List<String> generateFileFromTemplate(RepoSpawnModel repoSpawnModel, Template template, String destination) {
         Map<String, Object> data = getFeildsMap(repoSpawnModel);
         Writer writer;
         try {
@@ -39,8 +39,7 @@ public class CodeGenerator {
             writer.close();
             return List.of(destination);
         } catch (IOException | TemplateException e) {
-            logger.error(e.getMessage()); //todo add prefix
-            logger.error(Arrays.toString(e.getStackTrace()));  //todo remove stack trace
+            logger.error("Error generating the file {}", destination);
             return Collections.emptyList();
         }
     }

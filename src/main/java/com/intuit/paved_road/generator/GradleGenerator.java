@@ -1,5 +1,6 @@
 package com.intuit.paved_road.generator;
 
+import com.intuit.paved_road.exception.GradleGenerationException;
 import com.intuit.paved_road.model.RepoSpawnModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -36,7 +37,7 @@ public class GradleGenerator extends CodeGenerator {
         }
     }
 
-    public List<String> generateSettingGradle(RepoSpawnModel repoSpawnModel){
+    public List<String> generateSettingGradle(RepoSpawnModel repoSpawnModel) throws GradleGenerationException {
         try {
             Map<String, Object> data = getFeildsMap(repoSpawnModel);
             String outputFilePath = data.get(SETTING_GRADLE).toString();
@@ -45,14 +46,13 @@ public class GradleGenerator extends CodeGenerator {
             Template template = freemarkerConfig.getTemplate("gradle/settings-gradle.ftl");
             return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
         } catch (IOException e) {
-            logger.error(e.getMessage());
-            throw new RuntimeException(e);
-
+            logger.error("Error generating setting.gradle ");
+            throw new GradleGenerationException(e);
         }
     }
 
 
-    public List<String> copyStaticFiles(String folder) {
+    public List<String> copyStaticFiles(String folder) throws GradleGenerationException {
         List<String> files = new ArrayList<>();
         try {
             files.add(copyFile("/templates/.gitignore",folder+"/.gitignore"));
@@ -62,8 +62,8 @@ public class GradleGenerator extends CodeGenerator {
             files.add(copyFile("templates/gradle/gradlew",folder+"/gradlew"));
             files.add(copyFile("templates/gradle/gradlew.bat",folder+"/gradlew.bat"));
         } catch (IOException e) {
-            logger.error(e.getMessage());
-            throw new RuntimeException(e);
+            logger.error("Error copying static files to Gradle project");
+            throw new GradleGenerationException(e);
         }
         return files;
     }

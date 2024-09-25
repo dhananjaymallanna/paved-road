@@ -1,11 +1,14 @@
 package com.intuit.paved_road;
 
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+@Component
 public class Zipper {
 
     public byte[] zip(List<String> files) throws IOException {

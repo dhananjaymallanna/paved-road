@@ -1,5 +1,6 @@
 package com.intuit.paved_road.pipeline;
 
+import com.intuit.paved_road.exception.PipelineGenerationException;
 import com.intuit.paved_road.generator.CodeGenerator;
 import com.intuit.paved_road.model.BuildTool;
 import com.intuit.paved_road.model.RepoSpawnModel;
@@ -27,15 +28,15 @@ public class JenkinsCI extends CodeGenerator implements Pipeline{
         super(freemarkerConfig);
     }
 
-    public List<String> generatePipelineConfig(RepoSpawnModel repoSpawnModel) {
+    public List<String> generatePipelineConfig(RepoSpawnModel repoSpawnModel) throws PipelineGenerationException {
         try {
             Map<String, Object> data = getFeildsMap(repoSpawnModel);
             String outputFilePath = data.get(GITLAB_CI_CD_PATH).toString();
             Template template = getTemplate(repoSpawnModel.getBuildTool());
             return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
         } catch (IOException e) {
-            logger.error(e.getMessage());
-            throw new RuntimeException(e);
+            logger.error("Error while generating the Jenkins Pipeline");
+            throw new PipelineGenerationException(e);
         }
     }
 

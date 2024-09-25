@@ -54,8 +54,8 @@ public class Utility {
             feildMap.put(JAVA_TEST_CLASS_OUTPUT_PATH,getOutputFilePath(repoSpawnModel));
             feildMap.put(JAVA_MAIN_CLASS_OUTPUT_NAME,getClassName(repoSpawnModel.getName()));
             feildMap.put(POM_PATH,repoSpawnModel.getArtifact()+"/pom.xml");
-            feildMap.put(GITLAB_CI_CD_PATH,repoSpawnModel.getArtifact()+".gitlab-ci.yml");
-            feildMap.put(JENKINS_CI_CD_PATH,repoSpawnModel.getArtifact()+"Jenkinsfile");
+            feildMap.put(GITLAB_CI_CD_PATH,repoSpawnModel.getArtifact()+"/.gitlab-ci.yml");
+            feildMap.put(JENKINS_CI_CD_PATH,repoSpawnModel.getArtifact()+"/Jenkinsfile");
             feildMap.put(BUILD_GRADLE,repoSpawnModel.getArtifact()+"/build.gradle");
             feildMap.put(SETTING_GRADLE,repoSpawnModel.getArtifact()+"/gradle/settings.gradle");
             feildMap.put(APPLICATION_PROPERTIES,repoSpawnModel.getArtifact()+"/src/main/resources/application.properties");

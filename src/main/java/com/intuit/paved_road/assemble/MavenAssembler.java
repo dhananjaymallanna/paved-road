@@ -1,5 +1,6 @@
 package com.intuit.paved_road.assemble;
 
+import com.intuit.paved_road.exception.MavenGenerationException;
 import com.intuit.paved_road.generator.CodeGenerator;
 import com.intuit.paved_road.generator.MavenGenerator;
 import com.intuit.paved_road.model.RepoSpawnModel;
