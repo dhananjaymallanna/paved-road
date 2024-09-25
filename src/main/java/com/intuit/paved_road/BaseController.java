@@ -32,7 +32,7 @@ public class BaseController {
     }
 
     @RequestMapping(value="/download", method=RequestMethod.POST)
-    public ResponseEntity<byte[]> download(@ModelAttribute RepoSpawnModel repoSpawnModel) throws IOException, TemplateException {
+    public ResponseEntity<byte[]> download(@ModelAttribute RepoSpawnModel repoSpawnModel) {
         try {
             byte[] zipBytes = codeGenerationService.generateProject(repoSpawnModel);
             HttpHeaders headers = new HttpHeaders();

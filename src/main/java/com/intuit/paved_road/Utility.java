@@ -28,6 +28,7 @@ public class Utility {
     public static final String JAVA_MAIN_CLASS_OUTPUT_PATH = "javaMainClassPath";
     public static final String JAVA_MAIN_CLASS_OUTPUT_NAME = "javaMainClassName";
     public static final String POM_PATH = "pomPath";
+    public static final String APPLICATION_PROPERTIES = "applicationProperties";
 
     private static final Map<String,Object>  feildMap = new HashMap<>();
 
@@ -43,6 +44,7 @@ public class Utility {
             feildMap.put(JAVA_MAIN_CLASS_OUTPUT_PATH,getOutputFilePath(repoSpawnModel));
             feildMap.put(JAVA_MAIN_CLASS_OUTPUT_NAME,getClassName(repoSpawnModel.getName()));
             feildMap.put(POM_PATH,repoSpawnModel.getArtifact()+"/pom.xml");
+            feildMap.put(APPLICATION_PROPERTIES,repoSpawnModel.getArtifact()+"/src/main/resources/application.properties");
         }
         return feildMap;
     }

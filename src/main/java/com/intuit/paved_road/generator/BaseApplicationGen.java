@@ -1,10 +1,9 @@
-package com.intuit.paved_road;
+package com.intuit.paved_road.generator;
 import com.intuit.paved_road.model.RepoSpawnModel;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.intuit.paved_road.Utility.getFeildsMap;
-import static org.springframework.util.StringUtils.capitalize;
 
 @Component
 public class BaseApplicationGen {

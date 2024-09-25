@@ -1,5 +1,8 @@
 package com.intuit.paved_road;
 
+import com.intuit.paved_road.assemble.Assembler;
+import com.intuit.paved_road.assemble.JavaAssembler;
+import com.intuit.paved_road.assemble.SpringAssembler;
 import com.intuit.paved_road.exception.InvalidStreamException;
 import com.intuit.paved_road.model.RepoSpawnModel;
 import freemarker.template.TemplateException;

@@ -1,4 +1,4 @@
-package com.intuit.paved_road;
+package com.intuit.paved_road.generator;
 
 import com.intuit.paved_road.model.Type;
 

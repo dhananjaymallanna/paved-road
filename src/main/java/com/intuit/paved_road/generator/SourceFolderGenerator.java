@@ -1,13 +1,10 @@
-package com.intuit.paved_road;
+package com.intuit.paved_road.generator;
 
 import com.intuit.paved_road.model.Type;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Component
