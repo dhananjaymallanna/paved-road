@@ -1,11 +1,7 @@
 package com.intuit.paved_road.generator;
 
-import com.intuit.paved_road.ServletInitializer;
 import com.intuit.paved_road.model.RepoSpawnModel;
-import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -16,10 +12,7 @@ import java.util.Map;
 import static com.intuit.paved_road.Utility.*;
 
 @Component
-public class SpringApplicationGen extends BaseApplicationGen {
-
-    @Autowired
-    private Configuration freemarkerConfig;
+public class SpringApplicationGen extends ApplicationCodeGenerator{
 
     public List<String> generateJavaCode(RepoSpawnModel repoSpawnModel) {
         try {

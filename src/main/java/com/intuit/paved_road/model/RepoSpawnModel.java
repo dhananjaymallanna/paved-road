@@ -2,11 +2,13 @@ package com.intuit.paved_road.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
+@Component
 public class RepoSpawnModel {
-    String projectType;
+    String buildTool;
     String type;
     String group;
     String artifact;
@@ -19,7 +21,7 @@ public class RepoSpawnModel {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("RepoSpawnModel{");
-        sb.append("projectType=").append(projectType);
+        sb.append("buildTool=").append(buildTool);
         sb.append(", type=").append(type);
         sb.append(", group='").append(group).append('\'');
         sb.append(", artifact='").append(artifact).append('\'');

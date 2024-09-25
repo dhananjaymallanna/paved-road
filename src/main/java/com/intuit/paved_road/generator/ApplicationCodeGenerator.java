@@ -14,10 +14,28 @@ import java.util.*;
 import static com.intuit.paved_road.Utility.*;
 
 @Component
-public class JavaApplicationGen extends BaseApplicationGen {
+public class ApplicationCodeGenerator {
+
 
     @Autowired
-    private Configuration freemarkerConfig;
+    public Configuration freemarkerConfig;
+
+    public List<String> generateFileFromTemplate(RepoSpawnModel repoSpawnModel, Template template, String destination)  {
+        Map<String, Object> data = getFeildsMap(repoSpawnModel);
+        Writer writer = null;
+        try {
+            writer = new FileWriter(destination);
+            template.process(data, writer);
+            writer.flush();
+            writer.close();
+            System.out.println("Generated " + destination);
+            return List.of(destination);
+        } catch (IOException | TemplateException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+
+    }
 
     public List<String> generateJavaCode(RepoSpawnModel repoSpawnModel) {
         try {
@@ -31,16 +49,4 @@ public class JavaApplicationGen extends BaseApplicationGen {
             throw new RuntimeException(e);
         }
     }
-
-    public List<String> generatePomFile(RepoSpawnModel repoSpawnModel) {
-        try {
-            Map<String, Object> data = getFeildsMap(repoSpawnModel);
-            String outputFilePath = data.get(POM_PATH).toString();
-            Template template = freemarkerConfig.getTemplate("java/mvn/pom-template.ftl");
-            return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

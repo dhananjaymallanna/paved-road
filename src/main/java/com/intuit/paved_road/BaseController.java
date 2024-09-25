@@ -35,6 +35,7 @@ public class BaseController {
     public ResponseEntity<byte[]> download(@ModelAttribute RepoSpawnModel repoSpawnModel) {
         try {
             byte[] zipBytes = codeGenerationService.generateProject(repoSpawnModel);
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             headers.setContentDispositionFormData("attachment", repoSpawnModel.getArtifact()+".zip");
