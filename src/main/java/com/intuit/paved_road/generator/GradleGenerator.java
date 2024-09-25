@@ -1,7 +1,11 @@
 package com.intuit.paved_road.generator;
 
 import com.intuit.paved_road.model.RepoSpawnModel;
+import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -11,10 +15,15 @@ import java.util.List;
 import java.util.Map;
 
 import static com.intuit.paved_road.Utility.*;
-import static com.intuit.paved_road.Utility.copyFile;
 
 @Component
-public class GradleGenerator extends ApplicationCodeGenerator{
+public class GradleGenerator extends CodeGenerator {
+
+    private static final Logger logger = LoggerFactory.getLogger(GradleGenerator.class);
+    @Autowired
+    public GradleGenerator(Configuration freemarkerConfig) {
+        super(freemarkerConfig);
+    }
 
     public List<String> generateBuildFile(RepoSpawnModel repoSpawnModel) {
         try {
@@ -36,7 +45,9 @@ public class GradleGenerator extends ApplicationCodeGenerator{
             Template template = freemarkerConfig.getTemplate("gradle/settings-gradle.ftl");
             return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
         } catch (IOException e) {
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
+
         }
     }
 
@@ -51,9 +62,9 @@ public class GradleGenerator extends ApplicationCodeGenerator{
             files.add(copyFile("templates/gradle/gradlew",folder+"/gradlew"));
             files.add(copyFile("templates/gradle/gradlew.bat",folder+"/gradlew.bat"));
         } catch (IOException e) {
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
-        System.out.println(files);
         return files;
     }
 

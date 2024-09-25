@@ -1,7 +1,9 @@
 package com.intuit.paved_road.generator;
 
 import com.intuit.paved_road.model.RepoSpawnModel;
+import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -12,7 +14,12 @@ import java.util.Map;
 import static com.intuit.paved_road.Utility.*;
 
 @Component
-public class SpringApplicationGen extends ApplicationCodeGenerator{
+public class SpringJavaCodeGenerator extends CodeGenerator {
+
+    @Autowired
+    public SpringJavaCodeGenerator(Configuration freemarkerConfig) {
+        super(freemarkerConfig);
+    }
 
     public List<String> generateJavaCode(RepoSpawnModel repoSpawnModel) {
         try {
@@ -23,6 +30,7 @@ public class SpringApplicationGen extends ApplicationCodeGenerator{
             Template template = freemarkerConfig.getTemplate("spring-mvn/demo-application.ftl");
             return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
         } catch (IOException e) {
+            //todo CHANGE APPL
             throw new RuntimeException(e);
         }
     }
@@ -46,17 +54,6 @@ public class SpringApplicationGen extends ApplicationCodeGenerator{
             String outputFilePath = data.get(APPLICATION_PROPERTIES).toString();
             File outputFile = new File(outputFilePath);
             Template template = freemarkerConfig.getTemplate("spring-mvn/application-properties.ftl");
-            return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<String> generatePomFile(RepoSpawnModel repoSpawnModel) {
-        try {
-            Map<String, Object> data = getFeildsMap(repoSpawnModel);
-            String outputFilePath = data.get(POM_PATH).toString();
-            Template template = freemarkerConfig.getTemplate("spring-mvn/pom-template.ftl");
             return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
         } catch (IOException e) {
             throw new RuntimeException(e);

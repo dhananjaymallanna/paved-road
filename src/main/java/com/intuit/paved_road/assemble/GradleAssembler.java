@@ -1,8 +1,11 @@
 package com.intuit.paved_road.assemble;
 
+import com.intuit.paved_road.generator.CodeGenerator;
 import com.intuit.paved_road.generator.GradleGenerator;
 import com.intuit.paved_road.model.RepoSpawnModel;
 import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +16,8 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 public class GradleAssembler extends Assembler {
-
-    GradleGenerator gradleGenerator;
+    private static final Logger logger = LoggerFactory.getLogger(GradleAssembler.class);
+    private final GradleGenerator gradleGenerator;
 
     @Autowired
     public GradleAssembler(GradleGenerator gradleGenerator) {

@@ -8,29 +8,14 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 public class RepoSpawnModel {
-    String buildTool;
-    String type;
-    String group;
-    String artifact;
-    String name;
-    String version = "0.00.01";
-    String description;
-    String packaging;
-    String javaVersion;
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("RepoSpawnModel{");
-        sb.append("buildTool=").append(buildTool);
-        sb.append(", type=").append(type);
-        sb.append(", group='").append(group).append('\'');
-        sb.append(", artifact='").append(artifact).append('\'');
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", version='").append(version).append('\'');
-        sb.append(", description='").append(description).append('\'');
-        sb.append(", packageType=").append(packaging);
-        sb.append(", javaVersion=").append(javaVersion);
-        sb.append('}');
-        return sb.toString();
-    }
+    private String buildTool;
+    private String type;
+    private String group;
+    private String artifact;
+    private String name;
+    private String version = "0.00.01";
+    private String description;
+    private String packaging;
+    private String javaVersion;
+    private String cicd;
 }

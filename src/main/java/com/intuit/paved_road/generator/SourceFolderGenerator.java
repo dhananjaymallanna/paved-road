@@ -1,6 +1,8 @@
 package com.intuit.paved_road.generator;
 
 import com.intuit.paved_road.model.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @Component
 public class SourceFolderGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(SourceFolderGenerator.class);
 
     public static List<String> generate(Type type,String folder) {
         List<String> sourceFolders = new ArrayList<>();
@@ -19,14 +22,13 @@ public class SourceFolderGenerator {
 
         for (String sourceFolder : sourceFolders) {
             File tmp = new File( sourceFolder);
-            Boolean success = tmp.mkdirs();
+            boolean success = tmp.mkdirs();
             if (success) {
-                System.out.println(tmp.getAbsolutePath());
+                logger.info("generated {}", tmp.getPath());
             }else {
-                System.out.println("FAILED");
+                logger.error("FAILED to generate{}", tmp.getPath());
             }
         }
-        System.out.println(sourceFolders.toString());
         return sourceFolders;
     }
 }

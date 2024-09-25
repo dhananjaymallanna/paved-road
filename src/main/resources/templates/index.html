@@ -222,6 +222,20 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-25">
+                <label htmlFor="cicd">CI/CD</label>
+            </div>
+            <div class="col-75">
+                <label>Jenkins
+                    <input type="radio" name="cicd" th:field="*{cicd}" value="Jenkins">
+                </label>
+                <label>GitLab
+                    <input type="radio" name="cicd" th:field="*{cicd}" value="GitLab">
+                </label>
+            </div>
+        </div>
+
         <br>
         <div class="row">
             <input class="button" type="submit" value="Generate">

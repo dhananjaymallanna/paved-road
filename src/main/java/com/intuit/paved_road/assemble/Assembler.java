@@ -1,7 +1,10 @@
 package com.intuit.paved_road.assemble;
 
+import com.intuit.paved_road.generator.CodeGenerator;
 import com.intuit.paved_road.model.RepoSpawnModel;
 import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -11,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Component
 public abstract class Assembler {
-
+    private static final Logger logger = LoggerFactory.getLogger(Assembler.class);
     public abstract List<String> assemble(RepoSpawnModel repoSpawnModel) throws IOException, TemplateException;
 
     public abstract Boolean accept(RepoSpawnModel repoSpawnModel);

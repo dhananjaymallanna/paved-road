@@ -1,23 +1,21 @@
 package com.intuit.paved_road.assemble;
 
+import com.intuit.paved_road.generator.CodeGenerator;
 import com.intuit.paved_road.generator.MavenGenerator;
-import com.intuit.paved_road.generator.SourceFolderGenerator;
-import com.intuit.paved_road.generator.TestFolderGenerator;
 import com.intuit.paved_road.model.RepoSpawnModel;
-import com.intuit.paved_road.model.Type;
-import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Component
 public class MavenAssembler extends Assembler {
-
-    MavenGenerator mavenGenerator;
+    private static final Logger logger = LoggerFactory.getLogger(MavenAssembler.class);
+    private final MavenGenerator mavenGenerator;
 
     @Autowired
     public MavenAssembler(MavenGenerator mavenGenerator) {

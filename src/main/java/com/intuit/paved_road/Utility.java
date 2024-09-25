@@ -1,6 +1,8 @@
 package com.intuit.paved_road;
 
 import com.intuit.paved_road.model.RepoSpawnModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.FileCopyUtils;
 
@@ -13,13 +15,11 @@ import java.util.Map;
 import static org.springframework.util.StringUtils.capitalize;
 
 public class Utility {
+
+    private static final Logger logger = LoggerFactory.getLogger(Utility.class);
+
     public static final String PACKAGE_NAME = "packageName";
-    public static final String PACKAGE_VERSION = "packageVersion";
     public static final String CLASS_NAME = "className";
-    public static final String METHOD_NAME = "methodName";
-    public static final String METHOD_TYPE = "methodType";
-    public static final String METHOD_ARGS = "methodArgs";
-    public static final String METHOD_RETURN_TYPE = "methodReturnType";
     public static final String GROUP_ID = "groupId";
     public static final String ARTIFACT_ID = "artifactId";
     public static final String VERSION = "version";
@@ -36,6 +36,8 @@ public class Utility {
     public static final String APPLICATION_PROPERTIES = "applicationProperties";
     public static final String BUILD_GRADLE = "buildGradle";
     public static final String SETTING_GRADLE = "settingGradle";
+    public static final String GITLAB_CI_CD_PATH = "gitlabCiCDPath";
+    public static final String JENKINS_CI_CD_PATH = "jenkinsCiCDPath";
 
     private static final Map<String,Object>  feildMap = new HashMap<>();
 
@@ -52,6 +54,8 @@ public class Utility {
             feildMap.put(JAVA_TEST_CLASS_OUTPUT_PATH,getOutputFilePath(repoSpawnModel));
             feildMap.put(JAVA_MAIN_CLASS_OUTPUT_NAME,getClassName(repoSpawnModel.getName()));
             feildMap.put(POM_PATH,repoSpawnModel.getArtifact()+"/pom.xml");
+            feildMap.put(GITLAB_CI_CD_PATH,repoSpawnModel.getArtifact()+".gitlab-ci.yml");
+            feildMap.put(JENKINS_CI_CD_PATH,repoSpawnModel.getArtifact()+"Jenkinsfile");
             feildMap.put(BUILD_GRADLE,repoSpawnModel.getArtifact()+"/build.gradle");
             feildMap.put(SETTING_GRADLE,repoSpawnModel.getArtifact()+"/gradle/settings.gradle");
             feildMap.put(APPLICATION_PROPERTIES,repoSpawnModel.getArtifact()+"/src/main/resources/application.properties");
@@ -77,7 +81,7 @@ public class Utility {
                 map.put(field.getName(),
                         value);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                logger.error("Error generating the map from config");
             }
         }
 
@@ -141,11 +145,10 @@ public class Utility {
         try {
             ClassPathResource resource = new ClassPathResource(resourcePath);
             File destinationFile = new File(generationPath);
-            destinationFile.getParentFile().mkdirs();
+            boolean created =  destinationFile.getParentFile().mkdirs();
             FileCopyUtils.copy(resource.getInputStream().readAllBytes(), destinationFile);
-            System.out.println("File copied successfully! "+ destinationFile.getAbsolutePath());
         } catch (IOException e) {
-            System.err.println("Error copying file: " + e.getMessage());
+            logger.error("Error copying file: {}", e.getMessage());
         }
         return generationPath;
     }
