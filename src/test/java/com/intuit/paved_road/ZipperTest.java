@@ -22,7 +22,7 @@ class ZipperTest {
 
     @Test
     void zipSingleFile() throws IOException {
-        String filePath = new File("src/test/resources/templates/cicd/git-lab-gradle.ftl").getPath(); // Replace with your file path
+        String filePath = new File("src/min/resources/templates/cicd/git-lab-gradle.ftl").getPath(); // Replace with your file path
         Zipper zipper = new Zipper();
         byte[] zippedBytes = zipper.zip(List.of(filePath));
         try (ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(zippedBytes))) {
@@ -34,8 +34,8 @@ class ZipperTest {
 
     @Test
     void zipMultipleFiles() throws IOException {
-        String filePath1 = "src/test/resources/templates/cicd/git-lab-gradle.ftl";
-        String filePath2 = "src/test/resources/templates/cicd/git-lab-maven.ftl";
+        String filePath1 = "src/main/resources/templates/cicd/git-lab-gradle.ftl";
+        String filePath2 = "src/main/resources/templates/cicd/git-lab-maven.ftl";
         Zipper zipper = new Zipper();
         byte[] zippedBytes = zipper.zip(List.of(filePath1, filePath2));
 
@@ -51,7 +51,7 @@ class ZipperTest {
 
     @Test
     void zipDirectory() throws IOException {
-        String directoryPath = "src/test/resources/templates/cicd/";
+        String directoryPath = "src/main/resources/templates/cicd/";
         Zipper zipper = new Zipper();
         byte[] zippedBytes = zipper.zip(List.of(directoryPath));
         // Assert that the zipped file contains the directory structure
