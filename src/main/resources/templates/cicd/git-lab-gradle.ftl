@@ -23,6 +23,3 @@ deploy:
     - docker push ${name}
   only:
     - master
-
-
-.gitlab-ci.yaml

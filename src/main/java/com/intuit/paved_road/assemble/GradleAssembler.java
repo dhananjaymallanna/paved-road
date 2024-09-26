@@ -1,7 +1,5 @@
 package com.intuit.paved_road.assemble;
 
-import com.intuit.paved_road.exception.GradleGenerationException;
-import com.intuit.paved_road.generator.CodeGenerator;
 import com.intuit.paved_road.generator.GradleGenerator;
 import com.intuit.paved_road.model.RepoSpawnModel;
 import freemarker.template.TemplateException;

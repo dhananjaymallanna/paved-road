@@ -15,8 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static com.intuit.paved_road.Utility.GITLAB_CI_CD_PATH;
-import static com.intuit.paved_road.Utility.getFeildsMap;
+import static com.intuit.paved_road.Utility.*;
 
 @Component
 public class JenkinsCI extends CodeGenerator implements Pipeline{
@@ -31,7 +30,7 @@ public class JenkinsCI extends CodeGenerator implements Pipeline{
     public List<String> generatePipelineConfig(RepoSpawnModel repoSpawnModel) throws PipelineGenerationException {
         try {
             Map<String, Object> data = getFeildsMap(repoSpawnModel);
-            String outputFilePath = data.get(GITLAB_CI_CD_PATH).toString();
+            String outputFilePath = data.get(JENKINS_CI_CD_PATH).toString();
             Template template = getTemplate(repoSpawnModel.getBuildTool());
             return generateFileFromTemplate(repoSpawnModel,template,outputFilePath);
         } catch (IOException e) {

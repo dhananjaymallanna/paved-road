@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class GradleGenerationException extends RuntimeException {
-    private static final Logger logger = LoggerFactory.getLogger(PipelineGenerationException.class);
+    private static final Logger logger = LoggerFactory.getLogger(GradleGenerationException.class);
     public GradleGenerationException(IOException e) {
         logger.error(e.getMessage());
     }
